@@ -3,7 +3,7 @@
 
 
 ## 프로젝트 구성
-
+![project](https://github.com/seok5182/omvl/assets/155522475/1af46058-6953-4468-9422-55f49cf5071e)
 
 
 ## 프로젝트 목표

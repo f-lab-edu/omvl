@@ -31,8 +31,21 @@
 #### 고객
 - 회원가입
 - 상품조회
-- 회원정보 수정, 회원 탈퇴
 
-#### 관리자
+#### 관리자(보류)
 - 회원관리
 - 상품 추천
+
+
+## 화면 구상
+- 기본화면
+![OVML  기본](https://github.com/f-lab-edu/omvl/assets/155522475/31a8a5a9-dded-4dcf-b229-dbb98b3b7842)
+- 회원가입
+![OVML  회원가입](https://github.com/f-lab-edu/omvl/assets/155522475/0689bc29-ff47-4e4a-90fe-396e3ae7d6b7)
+- 로그인
+![OVML  로그인](https://github.com/f-lab-edu/omvl/assets/155522475/28f23568-a19f-4499-aa57-8df3798d7dec)
+- 상품창
+![OVML  상품창](https://github.com/f-lab-edu/omvl/assets/155522475/91ed36d7-64e5-4b7e-b567-7deaa4451e3d)
+
+
+

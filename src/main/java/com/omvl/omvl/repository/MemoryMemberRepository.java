@@ -20,6 +20,20 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
+    public Member login(String id, String password) {
+        if(store.get(id) != null){
+            Member member = store.get(id);
+            if(member.getPassword().equals(password)){
+                return store.get(id);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public Optional<Member> findByName(String name) {
         return store.values().stream()
                 .filter(member -> member.getName().equals(name))
@@ -29,10 +43,6 @@ public class MemoryMemberRepository implements MemberRepository {
     @Override
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
-    }
-
-    public void clearStore() {
-        store.clear();
     }
 
 }

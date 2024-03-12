@@ -2,7 +2,6 @@ package com.omvl.omvl.service;
 
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.repository.MemberRepository;
-import com.omvl.omvl.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MemberService {
@@ -25,10 +24,18 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
+
         memberRepository.findById(member.getId())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
+
     }
 
+    /**
+     * 로그인
+     */
+    public Member login(String id, String password) {
+        return memberRepository.login(id, password);
+    }
 }

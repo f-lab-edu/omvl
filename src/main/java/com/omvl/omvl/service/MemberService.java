@@ -39,10 +39,11 @@ public class MemberService {
 		Member member = null;
 
 		if(memberRepository.findById(id).isPresent()){
-			String passwordtmp = memberRepository.findById(id).get().getPassword();
+			Member memberTmp = memberRepository.findById(id).get();
+			String passwordTmp = memberTmp.getPassword();
 
-			if((passwordtmp.equals(password))){
-				member = memberRepository.findById(id).get();
+			if((passwordTmp.equals(password))){
+				member = memberTmp;
 			}
 		}
 

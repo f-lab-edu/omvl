@@ -31,8 +31,10 @@
 #### 고객
 - 회원가입(아이디 중복 검사 / 비밀번호 일치 여부 확인)
 - 로그인(세션을 이용한 로그인)
-- 상품조회
-- 상품구매
+- 상품 조회
+- 장바구니 조회
+- 상품 주문
+- 주문내역 조회
 
 #### 관리자(보류)
 - 회원관리
@@ -41,13 +43,51 @@
 
 ## 화면 구상
 - 기본화면
-![OVML  기본](https://github.com/f-lab-edu/omvl/assets/155522475/31a8a5a9-dded-4dcf-b229-dbb98b3b7842)
+![OVML  기본](https://github.com/f-lab-edu/omvl/assets/155522475/0fe16b5a-7e81-4bd5-bde6-ce99915162d6)<br>
+로그인 버튼 -> 로그인 화면<br>
+회원가입 버튼 -> 회원가입 화면<br><br>
+
 - 회원가입
-![OVML  회원가입](https://github.com/f-lab-edu/omvl/assets/155522475/0689bc29-ff47-4e4a-90fe-396e3ae7d6b7)
+![OVML  회원가입](https://github.com/f-lab-edu/omvl/assets/155522475/f4808c8d-c00e-44d3-ac72-27d4a69a86ed)<br>
+중복 조회 버튼 -> 아이디 중복 검사<br>
+회원가입 버튼 -> 회원가입 완료 후 기본화면<br><br>
+
 - 로그인
-![OVML  로그인](https://github.com/f-lab-edu/omvl/assets/155522475/28f23568-a19f-4499-aa57-8df3798d7dec)
-- 상품창
-![OVML  상품창](https://github.com/f-lab-edu/omvl/assets/155522475/91ed36d7-64e5-4b7e-b567-7deaa4451e3d)
+![OVML  로그인](https://github.com/f-lab-edu/omvl/assets/155522475/eb19130e-995a-4519-85c4-ee42df1f117b)<br>
+로그인 버튼 -> 로그인 실패 -> 기본화면<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;-> 로그인 성공 -> 상품창<br><br>
 
+- 회원정보 수정<br>
+아이디는 수정 불가!!나머지 항목은 수정 가능!!비밀번호/비밀번호 확인은 빈칸!!이름/성별/나이는 기존 데이터가 디폴트로 입력
+![OVML  회원정보 수정](https://github.com/f-lab-edu/omvl/assets/155522475/6426671b-0bd5-41b3-bd1f-239f007a930d)<br>
+수정하기 버튼 -> 기본화면<br><br>
 
+- 상품창<br>
+상품은 회원의 나이, 성별에 맞춰 종류 당 5개씩 선정되어 노출<br>
+선정 기준은 구글 쇼핑 해당 나이, 성별, 상품분류 평점순 정렬<br>
+![OVML  상품창](https://github.com/f-lab-edu/omvl/assets/155522475/c6080701-8354-4806-a82f-20782c875f25)<br>
+회원정보 수정 버튼 -> 회원정보 수정 화면<br>
+로그아웃 버튼 -> 기본화면<br>
+장바구니 버튼 -> 장바구니 화면<br>
+주문내역 버튼 -> 주문내역 화면<br>
+상품 클릭 -> 상품 상세 화면<br><br>
 
+- 상품 상세
+![OVML  상품 상세창](https://github.com/f-lab-edu/omvl/assets/155522475/8f52671c-56b6-4b65-880f-da35b44bb982)<br>
+장바구니 추가 버튼 -> 장바구니 화면<br>
+주문하기 버튼 -> 주문하기 화면<br><br>
+
+- 장바구니
+![OVML  장바구니](https://github.com/f-lab-edu/omvl/assets/155522475/3f9dd64a-fb5b-43c9-bdd3-f23d68acfb19)<br>
+삭제 버튼 -> 해당 상품 삭제<br>
+주문하기 버튼 -> 주문하기 화면<br><br>
+
+- 주문하기
+![OVML  주문하기](https://github.com/f-lab-edu/omvl/assets/155522475/7d1829d8-6133-4226-844f-098e698af529)<br>
+배송지 조회 버튼 -> 주소 찾기 API 실행<br>
+삭제 버튼 -> 해당 상품 삭제<br>
+주문 버튼 -> 주문내역 화면<br><br>
+
+- 주문내역
+![OVML  주문내역](https://github.com/f-lab-edu/omvl/assets/155522475/0b5301a4-d87c-40de-9e4d-12ed30723f13)<br>
+메인창으로 돌아가기 버튼 -> 상품창<br>

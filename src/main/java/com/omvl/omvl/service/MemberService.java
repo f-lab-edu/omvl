@@ -3,6 +3,7 @@ package com.omvl.omvl.service;
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 public class MemberService {
 

@@ -3,7 +3,6 @@ package com.omvl.omvl.service;
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 
 public class MemberService {
 
@@ -37,10 +36,13 @@ public class MemberService {
 	 * 로그인
 	 */
 	public Member login(String id, String password) {
-		Member member = memberRepository.findById(id).get();
+		Member member = null;
 
-		if (!member.getPassword().equals(password)) {
-			return null;
+		if (memberRepository.findById(id).isPresent()) {
+			String memberPassword = memberRepository.findById(id).get().getPassword();
+			if (memberPassword.equals(password)) {
+				return memberRepository.findById(id).get();
+			}
 		}
 
 		return member;

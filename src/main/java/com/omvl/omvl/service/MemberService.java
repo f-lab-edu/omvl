@@ -25,10 +25,9 @@ public class MemberService {
 
 	private void validateDuplicateMember(Member member) {
 
-		memberRepository.findById(member.getId())
-			.ifPresent(m -> {
-				throw new IllegalStateException("이미 존재하는 회원입니다.");
-			});
+		memberRepository.findById(member.getId()).ifPresent(m -> {
+			throw new IllegalStateException("이미 존재하는 회원입니다.");
+		});
 
 	}
 
@@ -36,12 +35,14 @@ public class MemberService {
 	 * 로그인
 	 */
 	public Member login(String id, String password) {
+
 		Member member = null;
 
-		if (memberRepository.findById(id).isPresent()) {
-			String memberPassword = memberRepository.findById(id).get().getPassword();
-			if (memberPassword.equals(password)) {
-				return memberRepository.findById(id).get();
+		if(memberRepository.findById(id).isPresent()){
+			String passwordtmp = memberRepository.findById(id).get().getPassword();
+
+			if((passwordtmp.equals(password))){
+				member = memberRepository.findById(id).get();
 			}
 		}
 

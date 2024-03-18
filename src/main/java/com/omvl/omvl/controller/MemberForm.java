@@ -1,49 +1,51 @@
 package com.omvl.omvl.controller;
 
 public class MemberForm {
-    private String id;
-    private String password;
-    private String name;
-    private int gender;
-    private int age;
 
-    public String getId() {
-        return id;
-    }
+	private String id;
+	private String password;
+	private String name;
+	private int gender;
+	private int age;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setAge(int age) {
+		this.age = age;
+	}
 
-    public int getGender() {
-        return gender;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public int getAge() {
-        return age;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+	public int getGender() {
+		return gender;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
 }

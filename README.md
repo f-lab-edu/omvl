@@ -44,51 +44,55 @@
 
 ## 화면 구상
 #### 기본화면
-![OVML  기본](https://github.com/f-lab-edu/omvl/assets/155522475/0fe16b5a-7e81-4bd5-bde6-ce99915162d6)<br>
+![01_기본](https://github.com/f-lab-edu/omvl/assets/155522475/3528eacd-d2f3-4f32-9af1-7ed8ad5c6a19)<br>
 - 로그인 버튼 -> 로그인 화면
 - 회원가입 버튼 -> 회원가입 화면
 
 #### 회원가입
-![OVML  회원가입](https://github.com/f-lab-edu/omvl/assets/155522475/f4808c8d-c00e-44d3-ac72-27d4a69a86ed)<br>
+![03_회원가입](https://github.com/f-lab-edu/omvl/assets/155522475/512cdb0c-78b7-460b-9bb4-33da2987bfae)<br>
 - 중복 조회 버튼 -> 아이디 중복 검사
 - 회원가입 버튼 -> 회원가입 완료 후 기본화면
 
 #### 로그인
-![OVML  로그인](https://github.com/f-lab-edu/omvl/assets/155522475/eb19130e-995a-4519-85c4-ee42df1f117b)<br>
-- 로그인 버튼 -> 로그인 실패 -> 기본화면
-&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;-> 로그인 성공 -> 상품창
+![02_로그인](https://github.com/f-lab-edu/omvl/assets/155522475/7a459e34-c2be-4e84-974f-314ccd95ef87)<br>
+- 로그인 버튼 -> 로그인 실패 -> 기본화면<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;-> 로그인 성공 -> 추천창
 
 #### 회원정보 수정<br>
-![OVML  회원정보 수정](https://github.com/f-lab-edu/omvl/assets/155522475/6426671b-0bd5-41b3-bd1f-239f007a930d)<br>
+![04_회원정보 수정](https://github.com/f-lab-edu/omvl/assets/155522475/4d38533a-3549-48b0-a809-53cf551a7d3c)<br>
 - 수정하기 버튼 -> 기본화면
   
-#### 상품창<br>
-회원가입시 선택한 유형에 맞춰 상품 추천<br>
-![OVML  상품창](https://github.com/f-lab-edu/omvl/assets/155522475/c6080701-8354-4806-a82f-20782c875f25)<br>
+#### 추천창<br>
+회원가입시 선택한 유형에 맞춰 상품 추천 및 해당 상품 설명<br>
+![05_추천창](https://github.com/f-lab-edu/omvl/assets/155522475/c654a0ef-6372-403c-b72e-229beb5aff52)<br>
 - 회원정보 수정 버튼 -> 회원정보 수정 화면
 - 로그아웃 버튼 -> 기본화면
 - 장바구니 버튼 -> 장바구니 화면
 - 주문내역 버튼 -> 주문내역 화면
-- 상품 클릭 -> 상품 상세 화면
+- 영양제 클릭 -> 상품창 화면
+
+#### 상품창<br>
+추천창에서 해당 상품 클릭시 해당하는 상품들 나열<br>
+![06_상품창](https://github.com/f-lab-edu/omvl/assets/155522475/63fff080-db80-49b6-9071-e00c29771941)<br>
 
 #### 상품 상세
-![OVML  상품 상세창](https://github.com/f-lab-edu/omvl/assets/155522475/8f52671c-56b6-4b65-880f-da35b44bb982)<br>
+![07_상품 상세창](https://github.com/f-lab-edu/omvl/assets/155522475/d6d3f30e-7458-4fa7-8937-3c5264f6a40e)<br>
 - 장바구니 추가 버튼 -> 장바구니 화면
 - 주문하기 버튼 -> 주문하기 화면
 
 #### 장바구니
-![OVML  장바구니](https://github.com/f-lab-edu/omvl/assets/155522475/3f9dd64a-fb5b-43c9-bdd3-f23d68acfb19)<br>
+![08_장바구니](https://github.com/f-lab-edu/omvl/assets/155522475/a170af09-8896-4b9d-893c-b863a507620e)<br>
 - 삭제 버튼 -> 해당 상품 삭제
 - 주문하기 버튼 -> 주문하기 화면
 
 #### 주문하기
-![OVML  주문하기](https://github.com/f-lab-edu/omvl/assets/155522475/7d1829d8-6133-4226-844f-098e698af529)<br>
+![09_주문하기](https://github.com/f-lab-edu/omvl/assets/155522475/ba942dcc-60a0-47b8-b291-708c07f057c1)<br>
 - 배송지 조회 버튼 -> 주소 찾기 API 실행
 - 삭제 버튼 -> 해당 상품 삭제
 - 주문 버튼 -> 주문내역 화면
 
 #### 주문내역
-![OVML  주문내역](https://github.com/f-lab-edu/omvl/assets/155522475/0b5301a4-d87c-40de-9e4d-12ed30723f13)<br>
+![10_주문내역](https://github.com/f-lab-edu/omvl/assets/155522475/5990826a-cba1-49fa-a837-0bb464858fce)<br>
 - 메인창으로 돌아가기 버튼 -> 상품창
 <br>
 

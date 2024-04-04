@@ -75,7 +75,7 @@ class MemoryMemberRepositoryTest {
         Member member2 = new Member();
 
         member2.setMemberId("abcd");
-        member2.setMemberPassword("1234");
+        member2.setMemberPassword("123");
         member2.setType(1);
 
         repository.save(member2);

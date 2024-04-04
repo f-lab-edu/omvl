@@ -1,30 +1,31 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
 <body>
 <div class="container">
-  <form action="/members/new" method="post">
+  <form action="/" th:action method="post" id="createForm" name="createForm" onsubmit="return fn_submitChk();">
     <div class="form-group">
-      <label for="id">아이디</label>
-      <input type="text" id="id" name="id" placeholder="아이디를 입력하세요">
+      <label for="memberId">아이디</label>
+      <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요">
     </div>
     <div class="form-group">
-      <label for="password">비밀번호</label>
-      <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요">
+      <label for="memberPassword">비밀번호</label>
+      <input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 입력하세요">
     </div>
     <div class="form-group">
-      <label for="name">이름</label>
-      <input type="text" id="name" name="name" placeholder="이름을 입력하세요">
+      <label for="passwordConfirm">비밀번호 확인</label>
+      <input type="password" id="passwordConfirm" name="passwordConfirm"
+             placeholder="비밀번호를 똑같이 입력하세요">
     </div>
     <div class="form-group">
-      <label for="gender">성별</label>
-      <select id="gender" name="gender">
-        <option value="1">남자</option>
-        <option value="2">여자</option>
+      <label for="type">영양제 필요 이유</label>
+      <select id="type" name="type">
+        <option value="0">이유를 선택해주세요</option>
+        <option value="1">만성피로, 염증</option>
+        <option value="2">면역력</option>
+        <option value="3">만성피로, 염증, 면역력</option>
       </select>
-    </div>
-    <div class="form-group">
-      <label for="age">나이</label>
-      <input type="number" id="age" name="age" placeholder="나이를 입력하세요">
     </div>
     <button type="submit">등록</button>
   </form>

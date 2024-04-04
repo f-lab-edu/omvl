@@ -12,53 +12,52 @@ class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
 
+    @AfterEach
+    void afterEach() {
+        repository.clear();
+    }
+
     @Test
     public void save() {
         //given
         Member member = new Member();
 
-        member.setId("seok5182");
-        member.setPassword("1234");
-        member.setName("홍석균");
-        member.setGender(1);
-        member.setAge(30);
+        member.setMemberId("abc");
+        member.setMemberPassword("1234");
+        member.setType(0);
 
         //when
         repository.save(member);
 
         //then
-        Member result = repository.findById(member.getId()).get();
+        Member result = repository.findById(member.getId());
         assertThat(result).isEqualTo(member);
     }
 
     @Test
-    public void findByName() {
+    public void findById() {
         //given
         Member member1 = new Member();
 
-        member1.setId("seok5182");
-        member1.setPassword("1234");
-        member1.setName("홍석균");
-        member1.setGender(1);
-        member1.setAge(30);
+        member1.setMemberId("abc");
+        member1.setMemberPassword("1234");
+        member1.setType(0);
 
         repository.save(member1);
 
         Member member2 = new Member();
 
-        member2.setId("hong1352");
-        member2.setPassword("0000");
-        member2.setName("홍당무");
-        member2.setGender(1);
-        member2.setAge(25);
+        member2.setMemberId("abcd");
+        member2.setMemberPassword("1234");
+        member2.setType(1);
 
         repository.save(member2);
 
         //when
-        Member result = repository.findByName("홍당무").get();
+        Member result = repository.findById(member1.getId());
 
         //then
-        assertThat(result).isEqualTo(member2);
+        assertThat(result).isEqualTo(member1);
 
     }
 
@@ -67,21 +66,17 @@ class MemoryMemberRepositoryTest {
         //given
         Member member1 = new Member();
 
-        member1.setId("seok5182");
-        member1.setPassword("1234");
-        member1.setName("홍석균");
-        member1.setGender(1);
-        member1.setAge(30);
+        member1.setMemberId("abc");
+        member1.setMemberPassword("1234");
+        member1.setType(0);
 
         repository.save(member1);
 
         Member member2 = new Member();
 
-        member2.setId("hong1352");
-        member2.setPassword("0000");
-        member2.setName("홍당무");
-        member2.setGender(1);
-        member2.setAge(25);
+        member2.setMemberId("abcd");
+        member2.setMemberPassword("1234");
+        member2.setType(1);
 
         repository.save(member2);
 
@@ -90,6 +85,7 @@ class MemoryMemberRepositoryTest {
 
         //then
         assertThat(result.size()).isEqualTo(2);
+        assertThat(result).contains(member1, member2);
     }
 
 }

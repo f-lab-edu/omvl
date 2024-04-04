@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div>
-  <p>[[ ${session.member.id} ]]님 환영합니다.</p>
-  <button type="button" onsubmit="/members/items">
-    장바구니
+  <p th:text="${session.member.memberId} + '님 환영합니다!!'"></p>
+  <button type="button">
+    <a href="/members/${session.member.memberId}/items">장바구니</a>
   </button>
-  <button type="button" onsubmit="/members/orders">
-    주문내역
+  <button type="button">
+    <a href="/members/${session.member.memberId}/orders">주문내역</a>
   </button>
 </div>
 <div>

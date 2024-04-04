@@ -2,15 +2,20 @@ package com.omvl.omvl.controller;
 
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.service.MemberService;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/members")
 public class MemberController {
 
 	private final MemberService memberService;
@@ -21,21 +26,14 @@ public class MemberController {
 	}
 
 	//회원가입 페이지로 이동
-	@GetMapping("/members/new")
+	@GetMapping("/new")
 	public String createForm() {
 		return "members/createMemberForm";
 	}
 
 	//회원가입 진행
-	@PostMapping("/members/new")
-	public String create(MemberForm form) {
-		Member member = new Member();
-
-		member.setId(form.getId());
-		member.setPassword(form.getPassword());
-		member.setName(form.getName());
-		member.setAge(form.getAge());
-		member.setGender(form.getGender());
+	@PostMapping("/new")
+	public String create(@ModelAttribute Member member) {
 
 		memberService.join(member);
 
@@ -43,29 +41,40 @@ public class MemberController {
 	}
 
 	//로그인 페이지로 이동
-	@GetMapping("/members/login")
+	@GetMapping("/login")
 	public String loginForm() {
 		return "members/loginForm";
 	}
 
 	//로그인 진행
-	@PostMapping("/members/login")
-	public String login(LoginForm form, HttpServletRequest request) {
+	@PostMapping("/login")
+	public String login(@RequestParam("memberId") String memberId,
+						@RequestParam("memberPassword") String memberPassword,
+						HttpServletRequest request) {
 		//세션 생성
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(3600);
 
-		Member member = memberService.login(form.getId(), form.getPassword());
+		Member member = memberService.login(memberId, memberPassword);
 
 		if (member != null) {
 			//세션 저장
 			session.setAttribute("member", member);
 
-			return "redirect:/welcome";
+			return "redirect:/items";
 		} else {
 			return "redirect:/";
 		}
 
+	}
+
+	/**
+	 * 테스트를 위한 PostConstruct
+	 */
+	@PostConstruct
+	public void init() {
+		memberService.join(new Member("abc", "1234", 0));
+		memberService.join(new Member("abcd", "123", 1));
 	}
 
 }

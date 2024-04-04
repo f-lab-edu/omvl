@@ -11,50 +11,53 @@ import java.io.Serializable;
  */
 public class Member implements Serializable {
 
-	private String id;
-	private String password;
-	private String name;
-	private int gender;
-	private int age;
+	//회원 인덱스용 id
+	private Long id;
+	//회원이 사용할 id
+	private String memberId;
+	//회원이 사용할 password
+	private String memberPassword;
+	//회원이 선택한 유형
+	private int type;
 
-	public String getId() {
+	public Member() {
+	}
+
+	public Member(String memberId, String memberPassword, int type) {
+		this.memberId = memberId;
+		this.memberPassword = memberPassword;
+		this.type = type;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getName() {
-		return name;
+	public String getMemberPassword() {
+		return memberPassword;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMemberPassword(String memberPassword) {
+		this.memberPassword = memberPassword;
 	}
 
-	public int getGender() {
-		return gender;
+	public int getType() {
+		return type;
 	}
 
-	public void setGender(int gender) {
-		this.gender = gender;
+	public void setType(int type) {
+		this.type = type;
 	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
 }

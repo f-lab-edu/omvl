@@ -14,11 +14,4 @@ public class HomeController {
 		return "home";
 	}
 
-	/**
-	 * 로그인 성공 후 상품창
-	 */
-	@GetMapping("/welcome")
-	public String welcome() {
-		return "welcome";
-	}
 }

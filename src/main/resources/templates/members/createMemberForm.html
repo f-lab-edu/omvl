@@ -1,13 +1,126 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // 아이디 입력 필드가 변경될 때마다 이벤트 핸들러 추가
+      $('#memberId').on('input', function() {
+        // 아이디 입력 필드가 변경되면 checkId 값을 false로 설정
+        $('#checkId').val('false');
+      });
+
+      // 중복 확인 버튼 클릭 시 이벤트 핸들러 추가
+      $('#checkIdBtn').click(function() {
+        if($('#memberId').val() == ''){
+          alert('아이디를 입력해주세요');
+          return false;
+        }
+        validateId();
+      });
+
+      // 비밀번호 필드가 변경될 때마다 이벤트 핸들러 추가
+      $('#memberPassword').on('input', function() {
+        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다');
+        $('#checkPwd').val('false');
+
+        if ($('#memberPassword').val() == $('#passwordConfirm').val() && $('#memberPassword').val() != '') {
+          $('#pwdConfirmMsg').text('비밀번호가 일치합니다');
+          $('#checkPwd').val('true');
+        }
+      });
+
+      // 비밀번호 확인 필드가 변경될 때마다 이벤트 핸들러 추가
+      $('#passwordConfirm').on('input', function() {
+        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다');
+        $('#checkPwd').val('false');
+
+        if ($('#memberPassword').val() == $('#passwordConfirm').val() && $('#memberPassword').val() != '') {
+          $('#pwdConfirmMsg').text('비밀번호가 일치합니다');
+          $('#checkPwd').val('true');
+        }
+      });
+
+    });
+
+    function validateId() {
+      var memberId = document.getElementById('memberId').value;
+
+      // AJAX 요청을 통해 서버에 아이디 중복 여부 확인
+      $.ajax({
+        type: 'POST',
+        url: '/members/checkId', // 서버의 체크용 URL
+        data: { memberId: memberId }, // 요청에 데이터를 첨부
+        success: function(response) {
+          if (response.exists) {
+            alert('사용 가능한 아이디입니다.');
+            // checkId 값 true로 변경
+            $('#checkId').val('true');
+          } else {
+            alert('이미 존재하는 아이디입니다.');
+            // checkId 값 false로 변경
+           $('#checkId').val('false');
+            // 이미 입력된 아이디를 지움
+            $('#memberId').val('');
+            // 아이디 입력란에 커서를 위치시킴
+            $('#memberId').focus();
+
+          }
+        },
+        error: function() {
+          alert('서버 오류가 발생했습니다.');
+        }
+      });
+    }
+
+    function chkSubmit() {
+
+      var chkId = false;
+      var chkPwd = false;
+      var chkType = false;
+
+      if ($('#checkId').val()==='true') {
+        chkId = true;
+      }
+
+      if ($('#checkPwd').val()==='true') {
+        chkPwd = true;
+      }
+
+      if ($('#type').val()=='1' || $('#type').val()=='2' || $('#type').val()=='3') {
+        chkType = true;
+      }
+
+      if (!chkId) {
+        alert('아이디 중복 확인을 진행해주세요');
+        return false;
+      }
+
+      if (!chkPwd) {
+        alert('비밀번호를 확인해주세요');
+        return false;
+      }
+
+      if (chkType != 1 && chkType != 2 && chkType != 3) {
+        alert('영양제 필요 이유를 선택해주세요');
+        return false;
+      }
+
+      return true;
+    }
+  </script>
 </head>
 <body>
 <div class="container">
-  <form action="/" th:action method="post" id="createForm" name="createForm" onsubmit="return fn_submitChk();">
+  <form action="/" th:action method="post" id="createForm" name="createForm" onsubmit="return chkSubmit()">
+    <div style="display=none;">
+      <input type="hidden" id="checkId" name="checkId" value="false">
+      <input type="hidden" id="checkPwd" name="checkPwd" value="false">
+    </div>
     <div class="form-group">
       <label for="memberId">아이디</label>
       <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요">
+      <button type="button" id="checkIdBtn">중복 확인</button>
     </div>
     <div class="form-group">
       <label for="memberPassword">비밀번호</label>
@@ -15,8 +128,8 @@
     </div>
     <div class="form-group">
       <label for="passwordConfirm">비밀번호 확인</label>
-      <input type="password" id="passwordConfirm" name="passwordConfirm"
-             placeholder="비밀번호를 똑같이 입력하세요">
+      <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 다시 한번 입력하세요">
+      <div id="pwdConfirmMsg"></div>
     </div>
     <div class="form-group">
       <label for="type">영양제 필요 이유</label>

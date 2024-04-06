@@ -5,6 +5,8 @@ import com.omvl.omvl.service.MemberService;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,17 @@ public class MemberController {
 		memberService.join(member);
 
 		return "redirect:/";
+	}
+
+	//아이디 중복 체크
+	@PostMapping("/checkId")
+	public ResponseEntity<Map<String, Boolean>> checkIdDuplication(@RequestParam("memberId") String memberId) {
+
+		boolean isDuplicated = memberService.validateDuplicateMember(memberId);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("exists", isDuplicated);
+
+		return ResponseEntity.ok(response);
 	}
 
 	//로그인 페이지로 이동

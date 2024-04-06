@@ -66,7 +66,7 @@ class MemoryMemberRepositoryTest {
         //given
         Member member1 = new Member();
 
-        member1.setMemberId("abc");
+        member1.setMemberId("asdf");
         member1.setMemberPassword("1234");
         member1.setType(0);
 
@@ -74,7 +74,7 @@ class MemoryMemberRepositoryTest {
 
         Member member2 = new Member();
 
-        member2.setMemberId("abcd");
+        member2.setMemberId("asdfg");
         member2.setMemberPassword("123");
         member2.setType(1);
 

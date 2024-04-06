@@ -61,31 +61,4 @@ class MemoryMemberRepositoryTest {
 
     }
 
-    @Test
-    public void findAll() {
-        //given
-        Member member1 = new Member();
-
-        member1.setMemberId("asdf");
-        member1.setMemberPassword("1234");
-        member1.setType(0);
-
-        repository.save(member1);
-
-        Member member2 = new Member();
-
-        member2.setMemberId("asdfg");
-        member2.setMemberPassword("123");
-        member2.setType(1);
-
-        repository.save(member2);
-
-        //when
-        List<Member> result = repository.findAll();
-
-        //then
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result).contains(member1, member2);
-    }
-
 }

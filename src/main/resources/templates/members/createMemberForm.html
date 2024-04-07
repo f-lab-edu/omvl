@@ -1,6 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css"
+        rel="stylesheet">
+  <style>
+    .container {
+    max-width: 560px;
+    }
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
@@ -21,22 +30,22 @@
 
       // 비밀번호 필드가 변경될 때마다 이벤트 핸들러 추가
       $('#memberPassword').on('input', function() {
-        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다');
+        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다').css('color', 'red');
         $('#checkPwd').val('false');
 
         if ($('#memberPassword').val() == $('#passwordConfirm').val() && $('#memberPassword').val() != '') {
-          $('#pwdConfirmMsg').text('비밀번호가 일치합니다');
+          $('#pwdConfirmMsg').text('비밀번호가 일치합니다').css('color', 'green');
           $('#checkPwd').val('true');
         }
       });
 
       // 비밀번호 확인 필드가 변경될 때마다 이벤트 핸들러 추가
       $('#passwordConfirm').on('input', function() {
-        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다');
+        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다').css('color', 'red');
         $('#checkPwd').val('false');
 
-        if ($('#memberPassword').val() == $('#passwordConfirm').val() && $('#memberPassword').val() != '') {
-          $('#pwdConfirmMsg').text('비밀번호가 일치합니다');
+        if ($('#passwordConfirm').val() == $('#memberPassword').val() && $('#passwordConfirm').val() != '') {
+          $('#pwdConfirmMsg').text('비밀번호가 일치합니다').css('color', 'green');
           $('#checkPwd').val('true');
         }
       });
@@ -53,10 +62,6 @@
         data: { memberId: memberId }, // 요청에 데이터를 첨부
         success: function(response) {
           if (response.exists) {
-            alert('사용 가능한 아이디입니다.');
-            // checkId 값 true로 변경
-            $('#checkId').val('true');
-          } else {
             alert('이미 존재하는 아이디입니다.');
             // checkId 값 false로 변경
            $('#checkId').val('false');
@@ -64,7 +69,10 @@
             $('#memberId').val('');
             // 아이디 입력란에 커서를 위치시킴
             $('#memberId').focus();
-
+          } else {
+            alert('사용 가능한 아이디입니다.');
+            // checkId 값 true로 변경
+            $('#checkId').val('true');
           }
         },
         error: function() {
@@ -97,7 +105,7 @@
       }
 
       if (!chkPwd) {
-        alert('비밀번호를 확인해주세요');
+        alert('비밀번호 일치여부를 확인해주세요');
         return false;
       }
 
@@ -112,26 +120,29 @@
 </head>
 <body>
 <div class="container">
+  <div class="py-5 text-center">
+    <h2>회원가입</h2>
+  </div>
   <form action="/" th:action method="post" id="createForm" name="createForm" onsubmit="return chkSubmit()">
     <div style="display=none;">
       <input type="hidden" id="checkId" name="checkId" value="false">
       <input type="hidden" id="checkPwd" name="checkPwd" value="false">
     </div>
-    <div class="form-group">
+    <div>
       <label for="memberId">아이디</label>
-      <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요">
+      <input type="text" id="memberId" name="memberId" class="form-control" placeholder="아이디를 입력하세요">
       <button type="button" id="checkIdBtn">중복 확인</button>
     </div>
-    <div class="form-group">
+    <div>
       <label for="memberPassword">비밀번호</label>
-      <input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 입력하세요">
+      <input type="password" id="memberPassword" name="memberPassword" class="form-control" placeholder="비밀번호를 입력하세요">
     </div>
-    <div class="form-group">
+    <div>
       <label for="passwordConfirm">비밀번호 확인</label>
-      <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 다시 한번 입력하세요">
+      <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" placeholder="비밀번호를 다시 한번 입력하세요">
       <div id="pwdConfirmMsg"></div>
     </div>
-    <div class="form-group">
+    <div>
       <label for="type">영양제 필요 이유</label>
       <select id="type" name="type">
         <option value="0">이유를 선택해주세요</option>
@@ -140,7 +151,18 @@
         <option value="3">만성피로, 염증, 면역력</option>
       </select>
     </div>
-    <button type="submit">등록</button>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='items.html'"
+                th:onclick="|location.href='@{/}'|"
+                type="button">취소</button>
+      </div>
+    </div>
   </form>
 </div> <!-- /container -->
 </body>

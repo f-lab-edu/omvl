@@ -16,17 +16,23 @@ public class MemberService {
 	 */
 	public Member join(Member member) {
 
+		boolean isDuplicated = duplicated(member.getMemberId());
+
+		if (isDuplicated) {
+			return null;
+		}
+
 		return memberRepository.save(member);
 	}
 
 	/**
 	 * memberId 중복검사
 	 */
-	public boolean validateDuplicateMember(String memberId) {
+	public boolean duplicated(String memberId) {
 
 		Member member = memberRepository.findByMemberId(memberId);
 
-		return member == null;
+		return member != null;
 
 	}
 

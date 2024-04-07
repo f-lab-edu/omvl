@@ -1,16 +1,37 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css"
+        rel="stylesheet">
+  <style>
+    .container {
+    max-width: 560px;
+    }
+  </style>
+</head>
 <body>
 <div class="container">
-  <div>
-    <h1>OMVL</h1>
-    <p>환영합니다!!</p>
-    <p>
-      <a th:href="@{/members/login}"
-          href="/members/login">로그인</a>
-      <a th:href="@{/members/new}"
-         href="/members/new">회원가입</a>
-    </p>
+  <div class="py-5 text-center">
+    <h2>OMVL</h2>
+  </div>
+  <div class="py-5 text-center">
+    <h1>환영합니다!!</h1>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button class="w-100 btn btn-primary btn-lg"
+              th:onclick="|location.href='@{/members/login}'|"
+              href="/members/login"
+              type="button">로그인</button>
+    </div>
+    <div class="col">
+      <button class="w-100 btn btn-primary btn-lg"
+              th:onclick="|location.href='@{/members/new}'|"
+              href="/members/new"
+              type="button">회원가입</button>
+    </div>
   </div>
 </div> <!-- /container -->
 </body>

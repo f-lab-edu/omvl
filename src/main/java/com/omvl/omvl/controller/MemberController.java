@@ -37,7 +37,11 @@ public class MemberController {
 	@PostMapping("/new")
 	public String create(@ModelAttribute Member member) {
 
-		memberService.join(member);
+		Member joinedMember = memberService.join(member);
+
+		if (joinedMember == null) {
+			return "redirect:/new";
+		}
 
 		return "redirect:/";
 	}
@@ -46,7 +50,7 @@ public class MemberController {
 	@PostMapping("/checkId")
 	public ResponseEntity<Map<String, Boolean>> checkIdDuplication(@RequestParam("memberId") String memberId) {
 
-		boolean isDuplicated = memberService.validateDuplicateMember(memberId);
+		boolean isDuplicated = memberService.duplicated(memberId);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("exists", isDuplicated);
 
@@ -76,7 +80,7 @@ public class MemberController {
 
 			return "redirect:/items";
 		} else {
-			return "redirect:/";
+			return "redirect:/members/login";
 		}
 
 	}

@@ -47,7 +47,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
 	@Override
 	public Member findById(Long id) {
-		String sql = "select * from member where id = ?";
+		String sql = "select id, memberId, memberPassword, type from member where id = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -71,7 +71,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
 	@Override
 	public Member findByMemberId(String memberId) {
-		String sql = "select * from member where memberId = ?";
+		String sql = "select id, memberId, memberPassword, type from member where memberId = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -95,7 +95,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
 	@Override
 	public List<Member> findAll() {
-		String sql = "select * from member";
+		String sql = "select id, memberId, memberPassword, type from member";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

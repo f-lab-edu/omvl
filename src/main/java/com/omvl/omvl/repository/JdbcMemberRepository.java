@@ -58,12 +58,7 @@ public class JdbcMemberRepository implements MemberRepository {
 			pstmt.setLong(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				Member member = new Member();
-				member.setId(rs.getLong("id"));
-				member.setMemberId(rs.getString("memberId"));
-				member.setMemberPassword(rs.getString("memberPassword"));
-				member.setType(rs.getInt("type"));
-				return member;
+				return getMember(rs);
 			} else {
 				return null;
 			}
@@ -87,12 +82,7 @@ public class JdbcMemberRepository implements MemberRepository {
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				Member member = new Member();
-				member.setId(rs.getLong("id"));
-				member.setMemberId(rs.getString("memberId"));
-				member.setMemberPassword(rs.getString("memberPassword"));
-				member.setType(rs.getInt("type"));
-				return member;
+				return getMember(rs);
 			} else {
 				return null;
 			}
@@ -116,11 +106,7 @@ public class JdbcMemberRepository implements MemberRepository {
 			rs = pstmt.executeQuery();
 			List<Member> members = new ArrayList<>();
 			while (rs.next()) {
-				Member member = new Member();
-				member.setId(rs.getLong("id"));
-				member.setMemberId(rs.getString("memberId"));
-				member.setMemberPassword(rs.getString("memberPassword"));
-				member.setType(rs.getInt("type"));
+				Member member = getMember(rs);
 				members.add(member);
 			}
 			return members;
@@ -129,6 +115,15 @@ public class JdbcMemberRepository implements MemberRepository {
 		} finally {
 			close(conn, pstmt, rs);
 		}
+	}
+
+	private static Member getMember(ResultSet rs) throws SQLException {
+		Member member = new Member();
+		member.setId(rs.getLong("id"));
+		member.setMemberId(rs.getString("memberId"));
+		member.setMemberPassword(rs.getString("memberPassword"));
+		member.setType(rs.getInt("type"));
+		return member;
 	}
 
 	private Connection getConnection() {

@@ -12,4 +12,9 @@ public class ItemController {
 	String welcome() {
 		return "/items/welcome";
 	}
+
+	@GetMapping("/o")
+	String omega3() {
+		return "items/omega3";
+	}
 }

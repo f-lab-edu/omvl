@@ -88,10 +88,10 @@ public class MemberController {
 	/**
 	 * 테스트를 위한 PostConstruct
 	 */
-	@PostConstruct
-	public void init() {
-		memberService.join(new Member("abc", "1234", 0));
-		memberService.join(new Member("abcd", "123", 1));
-	}
+//	@PostConstruct
+//	public void init() {
+//		memberService.join(new Member("abc", "1234", 1));
+//		memberService.join(new Member("abcd", "123", 2));
+//	}
 
 }

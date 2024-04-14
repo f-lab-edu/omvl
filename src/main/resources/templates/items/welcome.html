@@ -15,7 +15,7 @@
 <div>
     <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/${memberId}/items}'|"
+            th:onclick="|location.href='@{/members/{memberId}/items(memberId=${session.member.memberId})}'|"
             type="button">장바구니</button>
     <button class="btn btn-primary btn-sm"
             th:onclick="|location.href='@{/members/${memberId}/orders}'|"

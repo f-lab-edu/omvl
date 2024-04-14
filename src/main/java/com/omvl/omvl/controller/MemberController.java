@@ -1,15 +1,17 @@
 package com.omvl.omvl.controller;
 
 import com.omvl.omvl.domain.Member;
+import com.omvl.omvl.domain.MemberItem;
 import com.omvl.omvl.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -99,6 +101,25 @@ public class MemberController {
 		session.removeAttribute("member");
 		session.setAttribute("member", editMember);
 		return "redirect:/items";
+	}
+
+	//장바구니 담기
+	@PostMapping("/{memberId}/addItem")
+	public ResponseEntity<Map<String, Boolean>> addItems(@PathVariable("memberId") String memberId,
+						   								 @ModelAttribute MemberItem memberItem) {
+		boolean isAddItemsOk = memberService.addItem(memberItem);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("result", isAddItemsOk);
+
+		return ResponseEntity.ok(response);
+	}
+
+	//장바구니 조회
+	@GetMapping("/{memberId}/items")
+	public String items(@PathVariable("memberId") String memberId, Model model) {
+		List<MemberItem> memberItems = memberService.findItem(memberId);
+		model.addAttribute("memberItems", memberItems);
+		return "members/items";
 	}
 
 	/**

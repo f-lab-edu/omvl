@@ -2,6 +2,7 @@ package com.omvl.omvl.repository;
 
 import com.omvl.omvl.domain.Member;
 
+import com.omvl.omvl.domain.MemberItem;
 import java.util.*;
 
 public class MemoryMemberRepository implements MemberRepository {
@@ -52,6 +53,16 @@ public class MemoryMemberRepository implements MemberRepository {
 	//회원 전체 조회를 위한 메소드
 	public List<Member> findAll() {
 		return new ArrayList<>(store.values());
+	}
+
+	@Override
+	public boolean addItem(MemberItem memberItem) {
+		return false;
+	}
+
+	@Override
+	public List<MemberItem> findItem(String memberId) {
+		return null;
 	}
 
 	//테스트를 위한 store 초기화 메소드

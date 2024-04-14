@@ -1,6 +1,7 @@
 package com.omvl.omvl.repository;
 
 import com.omvl.omvl.domain.Member;
+import com.omvl.omvl.domain.MemberItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -136,6 +137,60 @@ public class JdbcMemberRepository implements MemberRepository {
 				members.add(member);
 			}
 			return members;
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			close(conn, pstmt, rs);
+		}
+	}
+
+	@Override
+	public boolean addItem(MemberItem memberItem) {
+		String sql = "insert into memberItem(memberId, itemName, itemPrice, itemQuantity) values (?,?,?,?)";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberItem.getMemberId());
+			pstmt.setString(2, memberItem.getItemName());
+			pstmt.setInt(3, memberItem.getItemPrice());
+			pstmt.setInt(4, memberItem.getItemQuantity());
+			pstmt.execute();
+
+			return true;
+
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			close(conn, pstmt, rs);
+		}
+	}
+
+	@Override
+	public List<MemberItem> findItem(String memberId) {
+		String sql = "select memberId, itemName, itemPrice, itemQuantity from memberItem where memberId = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			List<MemberItem> memberItems = new ArrayList<>();
+			while (rs.next()) {
+				MemberItem memberItem = new MemberItem();
+				memberItem.setMemberId(rs.getString("memberId"));
+				memberItem.setItemName(rs.getString("itemName"));
+				memberItem.setItemPrice(rs.getInt("itemPrice"));
+				memberItem.setItemQuantity(rs.getInt("itemQuantity"));
+				memberItems.add(memberItem);
+			}
+			return memberItems;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {

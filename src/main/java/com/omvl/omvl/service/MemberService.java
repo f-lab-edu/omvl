@@ -1,7 +1,9 @@
 package com.omvl.omvl.service;
 
 import com.omvl.omvl.domain.Member;
+import com.omvl.omvl.domain.MemberItem;
 import com.omvl.omvl.repository.MemberRepository;
+import java.util.List;
 
 public class MemberService {
 
@@ -63,6 +65,22 @@ public class MemberService {
 	public Member edit(String memberId, Member updateParam) {
 
 		return memberRepository.update(memberId, updateParam);
+	}
+
+	/**
+	 * 장바구니 담기
+	 */
+	public boolean addItem(MemberItem memberItem) {
+
+		return memberRepository.addItem(memberItem);
+	}
+
+	/**
+	 * 장바구니 조회
+	 */
+	public List<MemberItem> findItem(String memberId) {
+
+		return memberRepository.findItem(memberId);
 	}
 
 }

@@ -20,6 +20,15 @@ public class MemoryMemberRepository implements MemberRepository {
 	}
 
 	@Override
+	public Member update(String memberId, Member updateParam) {
+		Member findMember = findByMemberId(memberId);
+		findMember.setMemberPassword(updateParam.getMemberPassword());
+		findMember.setType(updateParam.getType());
+
+		return findMember;
+	}
+
+	@Override
 	//id로 회원 찾는 메소드
 	public Member findById(Long id) {
 		return store.get(id);

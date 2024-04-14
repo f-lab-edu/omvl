@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css"
+        rel="stylesheet">
+  <style>
+    .container {
+    max-width: 560px;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // 비밀번호 필드가 변경될 때마다 이벤트 핸들러 추가
+      $('#memberPassword').on('input', function() {
+        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다').css('color', 'red');
+        $('#checkPwd').val('false');
+
+        if ($('#memberPassword').val() == $('#passwordConfirm').val() && $('#memberPassword').val() != '') {
+          $('#pwdConfirmMsg').text('비밀번호가 일치합니다').css('color', 'green');
+          $('#checkPwd').val('true');
+        }
+      });
+
+      // 비밀번호 확인 필드가 변경될 때마다 이벤트 핸들러 추가
+      $('#passwordConfirm').on('input', function() {
+        $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다').css('color', 'red');
+        $('#checkPwd').val('false');
+
+        if ($('#passwordConfirm').val() == $('#memberPassword').val() && $('#passwordConfirm').val() != '') {
+          $('#pwdConfirmMsg').text('비밀번호가 일치합니다').css('color', 'green');
+          $('#checkPwd').val('true');
+        }
+      });
+
+    });
+
+    function chkSubmit() {
+      var chkPwd = false;
+      var chkType = false;
+
+      if ($('#checkPwd').val()==='true') {
+        chkPwd = true;
+      }
+
+      if ($('#type').val()=='1' || $('#type').val()=='2' || $('#type').val()=='3') {
+        chkType = true;
+      }
+
+      if (!chkPwd) {
+        alert('비밀번호 일치여부를 확인해주세요');
+        return false;
+      }
+
+      if (chkType != 1 && chkType != 2 && chkType != 3) {
+        alert('영양제 필요 이유를 선택해주세요');
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>회원수정</h2>
+  </div>
+  <form action="/" th:action method="post" id="editForm" name="editForm" onsubmit="return chkSubmit()">
+    <div style="display=none;">
+      <input type="hidden" id="checkPwd" name="checkPwd" value="false">
+    </div>
+    <div>
+      <label for="memberId">아이디</label>
+      <input type="text" id="memberId" name="memberId" class="form-control" th:value="${session.member.memberId}" readonly>
+    </div>
+    <div>
+      <label for="memberPassword">비밀번호</label>
+      <input type="password" id="memberPassword" name="memberPassword" class="form-control" placeholder="비밀번호를 입력하세요">
+    </div>
+    <div>
+      <label for="passwordConfirm">비밀번호 확인</label>
+      <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" placeholder="비밀번호를 다시 한번 입력하세요">
+      <div id="pwdConfirmMsg"></div>
+    </div>
+    <div>
+      <label for="type">영양제 필요 이유</label>
+      <select id="type" name="type">
+        <option value="0">이유를 선택해주세요</option>
+        <option value="1" th:selected="1 == ${session.member.type}">만성피로, 염증</option>
+        <option value="2" th:selected="2 == ${session.member.type}">면역력</option>
+        <option value="3" th:selected="3 == ${session.member.type}">만성피로, 염증, 면역력</option>
+      </select>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">수정하기</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='items.html'"
+                th:onclick="|location.href='@{/items}'|"
+                type="button">취소</button>
+      </div>
+    </div>
+  </form>
+</div> <!-- /container -->
+</body>
+</html>

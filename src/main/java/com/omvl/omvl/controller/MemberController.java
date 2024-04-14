@@ -2,9 +2,9 @@ package com.omvl.omvl.controller;
 
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.service.MemberService;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,6 +84,21 @@ public class MemberController {
 			return "redirect:/members/login";
 		}
 
+	}
+
+	//회원수정 페이지로 이동
+	@GetMapping("/{memberId}/edit")
+	public String editForm(@PathVariable("memberId") String memberId) {
+		return "/members/editForm";
+	}
+
+	//회원수정 진행
+	@PostMapping("/{memberId}/edit")
+	public String edit(@PathVariable("memberId") String memberId, @ModelAttribute Member member, HttpSession session) {
+		Member editMember = memberService.edit(memberId, member);
+		session.removeAttribute("member");
+		session.setAttribute("member", editMember);
+		return "redirect:/items";
 	}
 
 	/**

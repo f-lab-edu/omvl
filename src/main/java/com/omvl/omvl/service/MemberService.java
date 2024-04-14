@@ -56,4 +56,13 @@ public class MemberService {
 
 		return member;
 	}
+
+	/**
+	 * 회원수정
+	 */
+	public Member edit(String memberId, Member updateParam) {
+
+		return memberRepository.update(memberId, updateParam);
+	}
+
 }

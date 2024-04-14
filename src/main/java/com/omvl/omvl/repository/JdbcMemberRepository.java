@@ -46,6 +46,32 @@ public class JdbcMemberRepository implements MemberRepository {
 	}
 
 	@Override
+	public Member update(String memberId, Member updateParam) {
+		String sql = "update member set memberPassword = ?, type = ? where memberId = ?";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, updateParam.getMemberPassword());
+			pstmt.setInt(2, updateParam.getType());
+			pstmt.setString(3, memberId);
+
+			pstmt.execute();
+
+			return findByMemberId(memberId);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			close(conn, pstmt, rs);
+		}
+	}
+
+	@Override
 	public Member findById(Long id) {
 		String sql = "select id, memberId, memberPassword, type from member where id = ?";
 		Connection conn = null;

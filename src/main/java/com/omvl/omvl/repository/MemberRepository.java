@@ -12,6 +12,8 @@ public interface MemberRepository {
 
 	Member findByMemberId(String memberId);
 
+	Member update(String memberId, Member updateParam);
+
 	List<Member> findAll();
 
 }

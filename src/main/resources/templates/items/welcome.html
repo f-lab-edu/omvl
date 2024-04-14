@@ -15,14 +15,14 @@
 <div>
     <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/${session.member.memberId}/items}'|"
+            th:onclick="|location.href='@{/members/${memberId}/items}'|"
             type="button">장바구니</button>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/${session.member.memberId}/orders}'|"
+            th:onclick="|location.href='@{/members/${memberId}/orders}'|"
             type="button">주문내역</button>
   <div>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/${session.member.memberId}}'|"
+            th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${session.member.memberId})}'|"
             type="button">회원정보 수정</button>
     <button class="btn btn-secondary btn-sm"
             th:onclick="|location.href='@{/}'|"

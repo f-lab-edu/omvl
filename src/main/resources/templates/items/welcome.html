@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css"
+        rel="stylesheet">
+  <style>
+    .container {
+    max-width: 620px;
+    }
+  </style>
+</head>
+<body>
+<div>
+    <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
+    <button class="btn btn-primary btn-sm"
+            th:onclick="|location.href='@{/members/{memberId}/items(memberId=${session.member.memberId})}'|"
+            type="button">장바구니</button>
+    <button class="btn btn-primary btn-sm"
+            th:onclick="|location.href='@{/members/${memberId}/orders}'|"
+            type="button">주문내역</button>
+  <div>
+    <button class="btn btn-primary btn-sm"
+            th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${session.member.memberId})}'|"
+            type="button">회원정보 수정</button>
+    <button class="btn btn-secondary btn-sm"
+            th:onclick="|location.href='@{/}'|"
+            type="button">로그아웃</button>
+  </div>
+</div>
+<br>
+<div class="container">
+  <h4>선택하신 영양제 유형</h4>
+  <div th:if="${session.member.type == 1}">만성피로, 염증</div>
+  <div th:if="${session.member.type == 2}">면역력</div>
+  <div th:if="${session.member.type == 3}">만성피로, 염증, 면역력</div>
+
+  <br>
+
+  <h4>추천드릴 영양제</h4>
+  <div th:if="${session.member.type == 1}">
+    <li><a href="/items/o">오메가3</a></li>
+    <li><a href="/items/m">마그네슘</a></li>
+    <li><a href="/items/vb">비타민B</a></li>
+  </div>
+  <div th:if="${session.member.type == 2}">
+    <li><a href="/items/o">오메가3</a></li>
+    <li><a href="/items/l">유산균</a></li>
+    <li><a href="/items/vd">비타민D</a></li>
+  </div>
+  <div th:if="${session.member.type == 3}">
+    <li><a href="/items/o">오메가3</a></li>
+    <li><a href="/items/m">마그네슘</a></li>
+    <li><a href="/items/vb">비타민B</a></li>
+    <li><a href="/items/l">유산균</a></li>
+    <li><a href="/items/vd">비타민D</a></li>
+    <li><a href="/items/vc">비타민C</a></li>
+  </div>
+
+  <br>
+
+  <h4>추천 이유</h4>
+  <div th:if="${session.member.type == 1}">
+    <li>오메가3 : 혈행개선(콜레스테롤 개선), 기억력 개선, 안구건조 개선, 염증 완화 등</li>
+    <li>마그네슘 : 만성피로, 뼈 건강, 근육 이완 등</li>
+    <li>비타민B : 피로회복, 스트레스 개선, 혈액순환 개선, 기억력 개선 등</li>
+  </div>
+  <div th:if="${session.member.type == 2}">
+    <li>오메가3 : 혈행개선(콜레스테롤 개선), 기억력 개선, 안구건조 개선, 염증 완화 등</li>
+    <li>유산균 : 장건강, 피로회복, 면역력 증진, 비만억제 등</li>
+    <li>비타민D : 고다공증 예방, 근력 향상, 면역력 증진, 심장질환 예방 등</li>
+  </div>
+  <div th:if="${session.member.type == 3}">
+    <li>오메가3 : 혈행개선(콜레스테롤 개선), 기억력 개선, 안구건조 개선, 염증 완화 등</li>
+    <li>마그네슘 : 만성피로, 뼈 건강, 근육 이완 등</li>
+    <li>비타민B : 피로회복, 스트레스 개선, 혈액순환 개선, 기억력 개선 등</li>
+    <li>유산균 : 장건강, 피로회복, 면역력 증진, 비만억제 등</li>
+    <li>비타민D : 고다공증 예방, 근력 향상, 면역력 증진, 심장질환 예방 등</li>
+    <li>비타민C : 피로회복, 피부미용, 감기예방, 항산화 등</li>
+  </div>
+</div>
+</body>
+</html>

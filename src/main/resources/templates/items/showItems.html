@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css"
+        rel="stylesheet">
+  <style>
+    .container {
+    max-width: 620px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
+  <button class="btn btn-primary btn-sm"
+          th:onclick="|location.href='@{/members/${memberId}/items}'|"
+          type="button">장바구니</button>
+  <button class="btn btn-primary btn-sm"
+          th:onclick="|location.href='@{/members/${memberId}/orders}'|"
+          type="button">주문내역</button>
+  <div>
+    <button class="btn btn-primary btn-sm"
+            th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${session.member.memberId})}'|"
+            type="button">회원정보 수정</button>
+    <button class="btn btn-secondary btn-sm"
+            th:onclick="|location.href='@{/}'|"
+            type="button">로그아웃</button>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div th:switch="${type}">
+    <h2>선택하신 영양제 타입</h2>
+    <h4 th:case="o">오메가3</h4>
+    <h4 th:case="m">마그네슘</h4>
+    <h4 th:case="vb">비타민B</h4>
+    <h4 th:case="vc">비타민C</h4>
+    <h4 th:case="vd">비타민D</h4>
+    <h4 th:case="l">유산균</h4>
+  </div>
+
+  <br>
+
+  <h2>상품 목록</h2>
+  <table style="width:100%">
+    <tr>
+      <th>상품순번</th>
+      <th>상품이름</th>
+      <th>상품가격</th>
+      <th></th>
+    </tr>
+    <tr th:each="item : ${items}">
+      <td th:text="${itemStat.count}">itemCount</td>
+      <td th:text="${item.itemName}">itemName</td>
+      <td th:text="${item.price}">price</td>
+      <td>
+        <button class="w-100 btn btn-primary btn-lg"
+                th:onclick="|location.href='@{/items/${type}/{itemId}(itemId=${item.id})}'|">상세보기
+        </button>
+      </td>
+    </tr>
+  </table>
+
+</div>
+</body>
+</html>

@@ -13,21 +13,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      // 아이디 입력 필드가 변경될 때마다 이벤트 핸들러 추가
-      $('#memberId').on('input', function() {
-        // 아이디 입력 필드가 변경되면 checkId 값을 false로 설정
-        $('#checkId').val('false');
-      });
-
-      // 중복 확인 버튼 클릭 시 이벤트 핸들러 추가
-      $('#checkIdBtn').click(function() {
-        if($('#memberId').val() == ''){
-          alert('아이디를 입력해주세요');
-          return false;
-        }
-        validateId();
-      });
-
       // 비밀번호 필드가 변경될 때마다 이벤트 핸들러 추가
       $('#memberPassword').on('input', function() {
         $('#pwdConfirmMsg').text('비밀번호가 일치하지 않습니다').css('color', 'red');
@@ -52,44 +37,9 @@
 
     });
 
-    function validateId() {
-      var memberId = document.getElementById('memberId').value;
-
-      // AJAX 요청을 통해 서버에 아이디 중복 여부 확인
-      $.ajax({
-        type: 'POST',
-        url: '/members/checkId', // 서버의 체크용 URL
-        data: { memberId: memberId }, // 요청에 데이터를 첨부
-        success: function(response) {
-          if (response.exists) {
-            alert('이미 존재하는 아이디입니다.');
-            // checkId 값 false로 변경
-           $('#checkId').val('false');
-            // 이미 입력된 아이디를 지움
-            $('#memberId').val('');
-            // 아이디 입력란에 커서를 위치시킴
-            $('#memberId').focus();
-          } else {
-            alert('사용 가능한 아이디입니다.');
-            // checkId 값 true로 변경
-            $('#checkId').val('true');
-          }
-        },
-        error: function() {
-          alert('서버 오류가 발생했습니다.');
-        }
-      });
-    }
-
     function chkSubmit() {
-
-      var chkId = false;
       var chkPwd = false;
       var chkType = false;
-
-      if ($('#checkId').val()==='true') {
-        chkId = true;
-      }
 
       if ($('#checkPwd').val()==='true') {
         chkPwd = true;
@@ -97,11 +47,6 @@
 
       if ($('#type').val()=='1' || $('#type').val()=='2' || $('#type').val()=='3') {
         chkType = true;
-      }
-
-      if (!chkId) {
-        alert('아이디 중복 확인을 진행해주세요');
-        return false;
       }
 
       if (!chkPwd) {
@@ -121,17 +66,15 @@
 <body>
 <div class="container">
   <div class="py-5 text-center">
-    <h2>회원가입</h2>
+    <h2>회원수정</h2>
   </div>
-  <form action="/" th:action method="post" id="createForm" name="createForm" onsubmit="return chkSubmit()">
+  <form action="/" th:action method="post" id="editForm" name="editForm" onsubmit="return chkSubmit()">
     <div style="display=none;">
-      <input type="hidden" id="checkId" name="checkId" value="false">
       <input type="hidden" id="checkPwd" name="checkPwd" value="false">
     </div>
     <div>
       <label for="memberId">아이디</label>
-      <input type="text" id="memberId" name="memberId" class="form-control" placeholder="아이디를 입력하세요">
-      <button type="button" id="checkIdBtn">중복 확인</button>
+      <input type="text" id="memberId" name="memberId" class="form-control" th:value="${session.member.memberId}" readonly>
     </div>
     <div>
       <label for="memberPassword">비밀번호</label>
@@ -146,20 +89,20 @@
       <label for="type">영양제 필요 이유</label>
       <select id="type" name="type">
         <option value="0">이유를 선택해주세요</option>
-        <option value="1">만성피로, 염증</option>
-        <option value="2">면역력</option>
-        <option value="3">만성피로, 염증, 면역력</option>
+        <option value="1" th:selected="1 == ${session.member.type}">만성피로, 염증</option>
+        <option value="2" th:selected="2 == ${session.member.type}">면역력</option>
+        <option value="3" th:selected="3 == ${session.member.type}">만성피로, 염증, 면역력</option>
       </select>
     </div>
     <hr class="my-4">
     <div class="row">
       <div class="col">
-        <button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">수정하기</button>
       </div>
       <div class="col">
         <button class="w-100 btn btn-secondary btn-lg"
                 onclick="location.href='items.html'"
-                th:onclick="|location.href='@{/}'|"
+                th:onclick="|location.href='@{/items}'|"
                 type="button">취소</button>
       </div>
     </div>

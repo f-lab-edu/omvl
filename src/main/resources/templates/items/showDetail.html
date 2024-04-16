@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css"
+        rel="stylesheet">
+  <style>
+    .container {
+    max-width: 620px;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      // 장바구니 추가 버튼 클릭 시 이벤트 핸들러 추가
+      $('#addItemBtn').click(function() {
+        if($('#quantity').val() == 0){
+          alert('수량을 선택해주세요');
+          return false;
+        }
+        addItem();
+      });
+
+    });
+
+    function addItem() {
+      var memberId = document.getElementById('memberId').value;
+      var itemName = document.getElementById('itemName').value;
+      var quantity = document.getElementById('quantity').value;
+      var price = document.getElementById('price').value;
+
+      // AJAX 요청을 통해 서버에 아이디 중복 여부 확인
+      $.ajax({
+        type: 'POST',
+        url: '/members/'+memberId+'/addItem', // 서버의 체크용 URL
+        data: { memberId: memberId, itemName: itemName, itemQuantity: quantity, itemPrice: price}, // 요청에 데이터를 첨부
+        success: function(response) {
+          if (response.result) {
+            alert('장바구니 추가 완료.');
+            location.replace("/members/"+memberId+"/items");
+          } else {
+            alert('장바구니 추가 실패');
+            location.reload();
+          }
+        },
+        error: function() {
+          alert('서버 오류가 발생했습니다.');
+        }
+      });
+    }
+
+    function chkSubmit() {
+
+      var chkId = false;
+      var chkPwd = false;
+      var chkType = false;
+
+      if ($('#checkId').val()==='true') {
+        chkId = true;
+      }
+
+      if ($('#checkPwd').val()==='true') {
+        chkPwd = true;
+      }
+
+      if ($('#type').val()=='1' || $('#type').val()=='2' || $('#type').val()=='3') {
+        chkType = true;
+      }
+
+      if (!chkId) {
+        alert('아이디 중복 확인을 진행해주세요');
+        return false;
+      }
+
+      if (!chkPwd) {
+        alert('비밀번호 일치여부를 확인해주세요');
+        return false;
+      }
+
+      if (chkType != 1 && chkType != 2 && chkType != 3) {
+        alert('영양제 필요 이유를 선택해주세요');
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+<div>
+  <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
+  <button class="btn btn-primary btn-sm"
+          th:onclick="|location.href='@{/members/${memberId}/items}'|"
+          type="button">장바구니</button>
+  <button class="btn btn-primary btn-sm"
+          th:onclick="|location.href='@{/members/${memberId}/orders}'|"
+          type="button">주문내역</button>
+  <div>
+    <button class="btn btn-primary btn-sm"
+            th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${session.member.memberId})}'|"
+            type="button">회원정보 수정</button>
+    <button class="btn btn-secondary btn-sm"
+            th:onclick="|location.href='@{/}'|"
+            type="button">로그아웃</button>
+  </div>
+</div>
+<br>
+<div>
+  <div class="py-5 text-center">
+    <h2>상품 상세</h2>
+  </div>
+  <form th:action method="post" id="editForm" name="editForm" onsubmit="return chkSubmit()">
+    <div style="display:none;">
+      <input type="hidden" id="memberId" name="memberId" th:value="${session.member.memberId}">
+    </div>
+    <div>
+      <label for="itemName">상품 이름</label>
+      <input type="text" id="itemName" name="itemName" class="form-control" th:value="${item.itemName}" readonly>
+    </div>
+    <div>
+      <label for="price">가격</label>
+      <input type="text" id="price" name="price" class="form-control" th:value="${item.price}" readonly>
+    </div>
+    <div>
+      <label for="quantity">수량 선택</label>
+      <select id="quantity" name="quantity">
+        <option value="0">수량을 선택해주세요</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg"
+                id="addItemBtn"
+                type="button">장바구니 추가</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg"
+                onclick="location.href='items.html'"
+                th:onclick="|location.href='@{/items}'|"
+                type="button">주문하기</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

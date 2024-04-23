@@ -22,7 +22,7 @@
           type="button">주문내역</button>
   <div>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/{memberId}/edit(memberId=${session.member.memberId})}'|"
+            th:onclick="|location.href='@{/members/edit}'|"
             type="button">회원정보 수정</button>
     <button class="btn btn-secondary btn-sm"
             th:onclick="|location.href='@{/}'|"

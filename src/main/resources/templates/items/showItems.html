@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <link th:href="@{/css/bootstrap.min.css}"
         href="../css/bootstrap.min.css"
         rel="stylesheet">
@@ -57,7 +57,7 @@
       <td th:text="${item.price}">price</td>
       <td>
         <button class="w-100 btn btn-primary btn-lg"
-                th:onclick="|location.href='@{/items/${type}/{itemId}(itemId=${item.id})}'|">상세보기
+                th:onclick="|location.href='@{/items/{type}/{itemId}(type=${item.type},itemId=${item.id})}'|">상세보기
         </button>
       </td>
     </tr>

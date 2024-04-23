@@ -1,7 +1,7 @@
 CREATE TABLE member (
   `id` int NOT NULL AUTO_INCREMENT,
-  `memberId` varchar(45) COLLATE utf8mb3_bin NOT NULL,
-  `memberPassword` varchar(45) COLLATE utf8mb3_bin NOT NULL,
+  `memberId` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `memberPassword` varchar(255) NOT NULL,
   `type` int NOT NULL,
   PRIMARY KEY (`id`)
 );
@@ -10,9 +10,9 @@ insert into member (memberId, memberPassword, type) values ('admin', '1234', '1'
 
 CREATE TABLE item (
   `id` int NOT NULL AUTO_INCREMENT,
-  `itemName` varchar(45) COLLATE utf8mb3_bin NOT NULL,
+  `itemName` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `price` int NOT NULL,
-  `type` varchar(45) COLLATE utf8mb3_bin NOT NULL,
+  `type` varchar(2) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -48,10 +48,10 @@ insert into item (itemName, price, type) values
 ,('비타민D_4', 9000, 'vd')
 ,('비타민D_5', 11000, 'vd');
 
-CREATE TABLE memberitem (
+CREATE TABLE memberItem (
   `id` int NOT NULL AUTO_INCREMENT,
-  `memberId` varchar(45) COLLATE utf8mb3_bin NOT NULL,
-  `itemName` varchar(45) COLLATE utf8mb3_bin NOT NULL,
+  `memberId` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `itemName` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `itemPrice` int NOT NULL,
   `itemQuantity` int NOT NULL,
   PRIMARY KEY (`id`)

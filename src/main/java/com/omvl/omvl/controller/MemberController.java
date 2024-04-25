@@ -89,14 +89,15 @@ public class MemberController {
 	}
 
 	//회원수정 페이지로 이동
-	@GetMapping("/{memberId}/edit")
-	public String editForm(@PathVariable("memberId") String memberId) {
+	@GetMapping("/edit")
+	public String editForm() {
 		return "/members/editForm";
 	}
 
 	//회원수정 진행
-	@PostMapping("/{memberId}/edit")
-	public String edit(@PathVariable("memberId") String memberId, @ModelAttribute Member member, HttpSession session) {
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute Member member, HttpSession session) {
+		String memberId = member.getMemberId();
 		Member editMember = memberService.edit(memberId, member);
 		session.removeAttribute("member");
 		session.setAttribute("member", editMember);

@@ -1,7 +1,6 @@
 package com.omvl.omvl.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.repository.MemoryMemberRepository;

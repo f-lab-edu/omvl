@@ -24,21 +24,12 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-
-    - name: Docker build
-      run: |
-        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-        docker build -t seok5182/omvl .
-        docker push seok5182/omvl
           
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
     - name: Build with Gradle
       run: ./gradlew build
-
-    - name: Test with Gradle
-      run: ./gradlew test
 
   dependency-submission:
 

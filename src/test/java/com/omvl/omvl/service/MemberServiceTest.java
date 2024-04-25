@@ -13,7 +13,7 @@ class MemberServiceTest {
 	MemberService service = new MemberService(repository);
 
 	@Test
-	public void 회원가입_이미가입된아이디가있으면회원가입안됨() {
+	public void join_fail_idDuplicate() {
 		//given
 		Member member1 = new Member("abc", "1234", 1);
 		Member member2 = new Member("abc", "123", 2);
@@ -28,7 +28,7 @@ class MemberServiceTest {
 	}
 
 	@Test
-	public void 회원가입_회원가입() {
+	public void join_ok() {
 		//given
 		Member member1 = new Member("abc", "1234", 1);
 
@@ -40,7 +40,7 @@ class MemberServiceTest {
 	}
 
 	@Test
-	public void 아이디중복조회_중복된경우true리턴() {
+	public void isDuplicate_true() {
 		//given
 		Member member1 = new Member("abc", "1234", 1);
 		Member member2 = new Member("abc", "12345", 2);
@@ -55,7 +55,7 @@ class MemberServiceTest {
 	}
 
 	@Test
-	public void 아이디중복조회_중복이아닌경우false리턴() {
+	public void isDuplicate_false() {
 		//given
 		Member member1 = new Member("abc", "1234", 1);
 		Member member2 = new Member("abcd", "12345", 2);
@@ -70,7 +70,7 @@ class MemberServiceTest {
 	}
 
 	@Test
-	public void 로그인_성공하면member리턴() {
+	public void login_ok() {
 		//given
 		Member member1 = service.join(new Member("abc", "1234", 1));
 
@@ -82,7 +82,7 @@ class MemberServiceTest {
 	}
 
 	@Test
-	public void 로그인_실패하면null리턴() {
+	public void login_fail() {
 		//given
 		Member member1 = service.join(new Member("abc", "1234", 1));
 

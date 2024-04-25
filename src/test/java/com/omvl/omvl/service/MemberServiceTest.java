@@ -5,12 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.omvl.omvl.domain.Member;
 import com.omvl.omvl.repository.MemoryMemberRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 class MemberServiceTest {
 
 	MemoryMemberRepository repository = new MemoryMemberRepository();
 	MemberService service = new MemberService(repository);
+
+	@AfterEach
+	void afterEach() {
+		repository.clear();
+	}
 
 	@Test
 	public void join_fail_idDuplicate() {

@@ -9,17 +9,18 @@ name: Java CI with Gradle
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+  
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    
     steps:
-    - uses: actions/chechkout@v3
+    
+    - uses: actions/checkkout@v4
     
     - name: Set up JDK 21
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'

@@ -4,7 +4,7 @@ CREATE TABLE member (
   `memberPassword` varchar(255) NOT NULL,
   `type` int NOT NULL,
   PRIMARY KEY (`id`)
-);
+) default character set utf8mb4 collate utf8mb4_general_ci;
 
 insert into member (memberId, memberPassword, type) values ('admin', '1234', '1');
 
@@ -14,7 +14,7 @@ CREATE TABLE item (
   `price` int NOT NULL,
   `type` varchar(2) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-);
+) default character set utf8mb4 collate utf8mb4_general_ci;
 
 insert into item (itemName, price, type) values
 ('마그네슘_1', 3000, 'm')
@@ -55,4 +55,4 @@ CREATE TABLE memberItem (
   `itemPrice` int NOT NULL,
   `itemQuantity` int NOT NULL,
   PRIMARY KEY (`id`)
-);
+) default character set utf8mb4 collate utf8mb4_general_ci;

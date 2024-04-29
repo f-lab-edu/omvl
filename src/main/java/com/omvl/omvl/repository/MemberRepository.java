@@ -19,6 +19,8 @@ public interface MemberRepository {
 
 	boolean addItem(MemberItem memberItem);
 
+	boolean removeItem(String memberId, String itemName);
+
 	List<MemberItem> findItem(String memberId);
 
 }

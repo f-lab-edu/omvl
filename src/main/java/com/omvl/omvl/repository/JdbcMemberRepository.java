@@ -170,6 +170,29 @@ public class JdbcMemberRepository implements MemberRepository {
 	}
 
 	@Override
+	public boolean removeItem(String memberId, String itemName) {
+		String sql = "delete from memberItem where memberId = ? and itemName = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, itemName);
+			pstmt.execute();
+
+			return true;
+
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			close(conn, pstmt, rs);
+		}
+	}
+
+	@Override
 	public List<MemberItem> findItem(String memberId) {
 		String sql = "select memberId, itemName, itemPrice, itemQuantity from memberItem where memberId = ?";
 		Connection conn = null;

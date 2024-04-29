@@ -10,15 +10,51 @@
     max-width: 620px;
     }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      // 장바구니에서 제거 버튼 클릭 시 이벤트 핸들러 추가
+      $(document).on('click', '.removeItemBtn', function() {
+        var itemName = $(this).data('item-name');
+        removeItem(itemName); // 선택한 아이템을 제거하는 함수 호출
+      });
+
+    });
+
+    function removeItem(itemName) {
+
+      var memberId = document.getElementById('memberId').value;
+
+      // AJAX 요청을 통해 서버에 아이디 중복 여부 확인
+      $.ajax({
+        type: 'POST',
+        url: '/members/removeItems', // 서버의 체크용 URL
+        data: { memberId: memberId, itemName: itemName }, // 요청에 데이터를 첨부
+        success: function(response) {
+          if (response.result) {
+            alert('장바구니에서 제거 완료.');
+            location.replace("/members/items");
+          } else {
+            alert('장바구니에서 제거 실패');
+            location.reload();
+          }
+        },
+        error: function() {
+          alert('서버 오류가 발생했습니다.');
+        }
+      });
+    }
+  </script>
 </head>
 <body>
 <div>
   <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
   <button class="btn btn-primary btn-sm"
-          th:onclick="|location.href='@{/members/{memberId}/items(memberId=${session.member.memberId})}'|"
+          th:onclick="|location.href='@{/members/items}'|"
           type="button">장바구니</button>
   <button class="btn btn-primary btn-sm"
-          th:onclick="|location.href='@{/members/${memberId}/orders}'|"
+          th:onclick="|location.href='@{/members/orders}'|"
           type="button">주문내역</button>
   <div>
     <button class="btn btn-primary btn-sm"
@@ -31,19 +67,11 @@
 </div>
 <br>
 <div class="container">
-  <div th:switch="${type}">
-    <h2>선택하신 영양제 타입</h2>
-    <h4 th:case="o">오메가3</h4>
-    <h4 th:case="m">마그네슘</h4>
-    <h4 th:case="vb">비타민B</h4>
-    <h4 th:case="vc">비타민C</h4>
-    <h4 th:case="vd">비타민D</h4>
-    <h4 th:case="l">유산균</h4>
-  </div>
-
-  <br>
 
   <h2>장바구니 목록</h2>
+  <div style="display:none;">
+    <input type="hidden" id="memberId" name="memberId" th:value="${session.member.memberId}">
+  </div>
   <table style="width:100%">
     <tr>
       <th>상품순번</th>
@@ -56,11 +84,11 @@
       <td th:text="${itemStat.count}">itemCount</td>
       <td th:text="${item.itemName}">itemName</td>
       <td th:text="${item.itemPrice}">price</td>
-      <td th:text="${item.itemQuantity}">price</td>
+      <td th:text="${item.itemQuantity}">quantity</td>
       <td>
-        <button class="w-100 btn btn-primary btn-lg"
-                >장바구니에서 빼기
-        </button>
+        <button class="w-100 btn btn-primary btn-lg removeItemBtn"
+                th:data-item-name="${item.itemName}"
+                type="button">장바구니에서 빼기</button>
       </td>
     </tr>
   </table>

@@ -105,9 +105,8 @@ public class MemberController {
 	}
 
 	//장바구니 담기
-	@PostMapping("/{memberId}/addItem")
-	public ResponseEntity<Map<String, Boolean>> addItems(@PathVariable("memberId") String memberId,
-						   								 @ModelAttribute MemberItem memberItem) {
+	@PostMapping("/addItems")
+	public ResponseEntity<Map<String, Boolean>> addItems(@ModelAttribute MemberItem memberItem) {
 		boolean isAddItemsOk = memberService.addItem(memberItem);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("result", isAddItemsOk);
@@ -115,9 +114,22 @@ public class MemberController {
 		return ResponseEntity.ok(response);
 	}
 
+	//장바구니에서 제거
+	@PostMapping("/removeItems")
+	public ResponseEntity<Map<String, Boolean>> removeItems(@RequestParam("memberId") String memberId,
+															@RequestParam("itemName") String itemName) {
+		boolean isRemoveItemsOk = memberService.removeItem(memberId, itemName);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("result", isRemoveItemsOk);
+
+		return ResponseEntity.ok(response);
+	}
+
 	//장바구니 조회
-	@GetMapping("/{memberId}/items")
-	public String items(@PathVariable("memberId") String memberId, Model model) {
+	@GetMapping("/items")
+	public String items(Model model, HttpSession session) {
+		Member member = (Member)session.getAttribute("member");
+		String memberId = member.getMemberId();
 		List<MemberItem> memberItems = memberService.findItem(memberId);
 		model.addAttribute("memberItems", memberItems);
 		return "members/items";

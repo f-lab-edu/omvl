@@ -10,7 +10,6 @@ class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
 
-
     @AfterEach
     void afterEach() {
         repository.clear();

@@ -76,6 +76,14 @@ public class MemberService {
 	}
 
 	/**
+	 * 장바구니에서 제거
+	 */
+	public boolean removeItem(String memberId, String itemName) {
+
+		return memberRepository.removeItem(memberId, itemName);
+	}
+
+	/**
 	 * 장바구니 조회
 	 */
 	public List<MemberItem> findItem(String memberId) {

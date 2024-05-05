@@ -61,6 +61,11 @@ public class MemoryMemberRepository implements MemberRepository {
 	}
 
 	@Override
+	public boolean removeItem(String memberId, String itemName) {
+		return false;
+	}
+
+	@Override
 	public List<MemberItem> findItem(String memberId) {
 		return null;
 	}

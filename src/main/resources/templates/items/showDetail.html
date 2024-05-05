@@ -34,12 +34,12 @@
       // AJAX 요청을 통해 서버에 아이디 중복 여부 확인
       $.ajax({
         type: 'POST',
-        url: '/members/'+memberId+'/addItem', // 서버의 체크용 URL
+        url: '/members/addItems', // 서버의 체크용 URL
         data: { memberId: memberId, itemName: itemName, itemQuantity: quantity, itemPrice: price}, // 요청에 데이터를 첨부
         success: function(response) {
           if (response.result) {
             alert('장바구니 추가 완료.');
-            location.replace("/members/"+memberId+"/items");
+            location.replace("/members/items");
           } else {
             alert('장바구니 추가 실패');
             location.reload();
@@ -92,10 +92,10 @@
 <div>
   <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
   <button class="btn btn-primary btn-sm"
-          th:onclick="|location.href='@{/members/${memberId}/items}'|"
+          th:onclick="|location.href='@{/members/items}'|"
           type="button">장바구니</button>
   <button class="btn btn-primary btn-sm"
-          th:onclick="|location.href='@{/members/${memberId}/orders}'|"
+          th:onclick="|location.href='@{/members/orders}'|"
           type="button">주문내역</button>
   <div>
     <button class="btn btn-primary btn-sm"

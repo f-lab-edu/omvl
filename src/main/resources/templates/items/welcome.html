@@ -15,10 +15,10 @@
 <div>
     <span th:text="${session.member.memberId} + '님 환영합니다!!'"></span>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/{memberId}/items(memberId=${session.member.memberId})}'|"
+            th:onclick="|location.href='@{/members/items}'|"
             type="button">장바구니</button>
     <button class="btn btn-primary btn-sm"
-            th:onclick="|location.href='@{/members/${memberId}/orders}'|"
+            th:onclick="|location.href='@{/members/orders}'|"
             type="button">주문내역</button>
   <div>
     <button class="btn btn-primary btn-sm"

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -127,12 +126,16 @@ public class MemberController {
 
 	//장바구니 조회
 	@GetMapping("/items")
-	public String items(Model model, HttpSession session) {
-		Member member = (Member)session.getAttribute("member");
-		String memberId = member.getMemberId();
-		List<MemberItem> memberItems = memberService.findItem(memberId);
-		model.addAttribute("memberItems", memberItems);
-		return "members/items";
+	public String items(Model model) {
+		// AOP에서 받은 멤버 정보를 이용하여 아이템 조회
+		Member sessionMember = (Member) model.getAttribute("member");
+		if(sessionMember != null) {
+			List<MemberItem> memberItems = memberService.findItem(sessionMember.getMemberId());
+			model.addAttribute("memberItems", memberItems);
+			return "members/items";
+		} else {
+			return "/";
+		}
 	}
 
 	/**
